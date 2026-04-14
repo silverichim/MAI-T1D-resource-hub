@@ -338,6 +338,12 @@ h1 .accent {
   border-radius: 10px;
   display: flex; align-items: center; justify-content: center;
   font-size: 18px;
+  overflow: hidden;
+}
+.card-icon-wrap img {
+  width: 100%; height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
 }
 .card-icon-wrap.teal { background: var(--teal-50); color: var(--teal-600); }
 .card-icon-wrap.blue { background: var(--blue-50); color: var(--blue-600); }
@@ -345,6 +351,7 @@ h1 .accent {
 .card-icon-wrap.amber { background: var(--amber-100); color: var(--amber-600); }
 .card-icon-wrap.violet { background: var(--violet-100); color: var(--violet-600); }
 .card-icon-wrap.rose { background: rgba(225,29,72,0.08); color: var(--rose-600); }
+.card-icon-wrap.img-wrap { background: var(--bg-white); }
 
 .badge {
   font-family: 'IBM Plex Mono', monospace;
@@ -413,6 +420,68 @@ h1 .accent {
 }
 .card-link svg {
   width: 14px; height: 14px;
+}
+
+/* ══════════════════════════════════════════
+   WIKI MODAL OVERLAY
+   ══════════════════════════════════════════ */
+.wiki-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: var(--bg);
+  overflow-y: auto;
+}
+.wiki-overlay.active { display: block; }
+.wiki-overlay-inner {
+  max-width: 640px;
+  margin: 80px auto;
+  padding: 0 28px;
+}
+.wiki-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--teal-600);
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-family: 'DM Sans', sans-serif;
+  margin-bottom: 40px;
+  padding: 0;
+}
+.wiki-back-btn:hover { opacity: 0.75; }
+.wiki-page-icon {
+  width: 56px; height: 56px;
+  border-radius: 14px;
+  background: var(--teal-50);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px;
+  margin-bottom: 20px;
+}
+.wiki-page-title {
+  font-family: 'Source Serif 4', serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+.wiki-access-notice {
+  background: var(--bg-white);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--teal-500);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  box-shadow: var(--shadow-sm);
+}
+.wiki-access-notice strong {
+  color: var(--text);
 }
 
 /* ══════════════════════════════════════════
@@ -497,13 +566,28 @@ footer {
 </head>
 <body>
 
+<!-- ═══════ WIKI SUBPAGE OVERLAY ═══════ -->
+<div class="wiki-overlay" id="wikiOverlay">
+  <div class="wiki-overlay-inner">
+    <button class="wiki-back-btn" onclick="closeWikiPage()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Back to Resource Hub
+    </button>
+    <div class="wiki-page-icon">📘</div>
+    <div class="wiki-page-title">MAI-T1D Project Wiki</div>
+    <div class="wiki-access-notice">
+      Access need email <strong>kailiua@umich.edu</strong> — open only for NIH audit and internal use.
+    </div>
+  </div>
+</div>
+
 <div class="container">
 
 <!-- ═══════ HEADER ═══════ -->
 <header>
   <div class="project-badge">
     <span class="dot"></span>
-    NIH-funded · Five-Institution Consortium
+    NIH/ODSS funded
   </div>
   <h1>MAI-T1D <span class="accent">Resource Hub</span></h1>
   <p class="subtitle">
@@ -520,9 +604,9 @@ footer {
 
 <!-- ═══════ STATS ═══════ -->
 <div class="stats-bar">
-  <div class="stat"><div class="stat-num">~9,000</div><div class="stat-label">Samples</div></div>
-  <div class="stat"><div class="stat-num">194</div><div class="stat-label">HPAP Donors</div></div>
-  <div class="stat"><div class="stat-num">10+</div><div class="stat-label">Modalities</div></div>
+  <div class="stat"><div class="stat-num">~ 40K+</div><div class="stat-label">Samples</div></div>
+  <div class="stat"><div class="stat-num">200+</div><div class="stat-label">HPAP Donors</div></div>
+  <div class="stat"><div class="stat-num">20+</div><div class="stat-label">Modalities</div></div>
   <div class="stat"><div class="stat-num">5</div><div class="stat-label">Institutions</div></div>
   <div class="stat"><div class="stat-num">3</div><div class="stat-label">Foundation Models</div></div>
 </div>
@@ -531,99 +615,15 @@ footer {
 <div class="toolbar">
   <div class="filter-group" id="filterGroup">
     <button class="filter-btn active" onclick="setFilter('all')">All</button>
-    <button class="filter-btn" onclick="setFilter('platform')">Platforms</button>
     <button class="filter-btn" onclick="setFilter('fm')">Foundation Models</button>
-    <button class="filter-btn" onclick="setFilter('tool')">Tools & Agents</button>
-    <button class="filter-btn" onclick="setFilter('publication')">Publications</button>
-    <button class="filter-btn" onclick="setFilter('wiki')">Wiki & Docs</button>
+    <button class="filter-btn" onclick="setFilter('platform')">Platforms</button>
+    <button class="filter-btn" onclick="setFilter('tool')">Tools &amp; Agents</button>
+    <button class="filter-btn" onclick="setFilter('litreview')">Literature Review</button>
+    <button class="filter-btn" onclick="setFilter('wiki')">Wiki &amp; Docs</button>
   </div>
   <div class="search-box">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
     <input type="text" id="searchInput" placeholder="Search resources…" oninput="doSearch()">
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════
-     SECTION: Knowledge & Data Platforms
-     ═══════════════════════════════════════ -->
-<div class="section" data-section="platform">
-  <div class="section-head">
-    <div class="section-icon" style="background:var(--teal-50);color:var(--teal-600)">🧬</div>
-    <h2>Knowledge & Data Platforms</h2>
-    <span class="section-count">5 resources</span>
-  </div>
-  <div class="card-grid">
-
-    <!-- GLKB -->
-    <a class="card" data-accent="teal" data-cat="platform" data-search="glkb genomics literature knowledge base pubmed agentic qa hypothesis" href="#" target="_blank">
-      <div class="card-row-top">
-        <div class="card-icon-wrap teal">📚</div>
-        <span class="badge live">Live</span>
-      </div>
-      <h3>GLKB — Genomics Literature Knowledge Base</h3>
-      <p class="desc">PubMed-integrated knowledge platform with ML-enhanced search, agentic Q&A in biomedicine, and AI-driven hypothesis generation.</p>
-      <div class="card-footer">
-        <div class="card-tags"><span class="tag">PubMed</span><span class="tag">NLP</span><span class="tag">Knowledge Graph</span></div>
-        <span class="card-link">Visit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></span>
-      </div>
-    </a>
-
-    <!-- PanKGraph -->
-    <a class="card" data-accent="teal" data-cat="platform" data-search="pankgraph pankbase pancreas knowledge graph hirn" href="#" target="_blank">
-      <div class="card-row-top">
-        <div class="card-icon-wrap teal">🔗</div>
-        <span class="badge live">Live</span>
-      </div>
-      <h3>PanKGraph</h3>
-      <p class="desc">Pancreas Knowledge Graph under the HIRN PanKbase U24 consortium. Integrating multi-omics and clinical data into queryable graph structures.</p>
-      <div class="card-footer">
-        <div class="card-tags"><span class="tag">HIRN</span><span class="tag">Neo4j</span><span class="tag">U24</span></div>
-        <span class="card-link">Visit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></span>
-      </div>
-    </a>
-
-    <!-- HPAP -->
-    <a class="card" data-accent="blue" data-cat="platform" data-search="hpap human pancreas analysis program donor portal multimodal" href="#" target="_blank">
-      <div class="card-row-top">
-        <div class="card-icon-wrap blue">🏥</div>
-        <span class="badge live">Live</span>
-      </div>
-      <h3>HPAP — Human Pancreas Analysis Program</h3>
-      <p class="desc">Core dataset powering MAI-T1D: 194 donors with scRNA-seq, ATAC-seq, spatial transcriptomics, CODEX, proteomics, and more.</p>
-      <div class="card-footer">
-        <div class="card-tags"><span class="tag">194 Donors</span><span class="tag">10+ Modalities</span></div>
-        <span class="card-link">Visit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></span>
-      </div>
-    </a>
-
-    <!-- TEDDY -->
-    <a class="card" data-accent="blue" data-cat="platform" data-search="teddy ncc1 metabolomics virome longitudinal cohort" href="#" target="_blank">
-      <div class="card-row-top">
-        <div class="card-icon-wrap blue">👶</div>
-        <span class="badge coming">Cohort</span>
-      </div>
-      <h3>TEDDY NCC1</h3>
-      <p class="desc">The Environmental Determinants of Diabetes in the Young — nested case-control cohort with longitudinal metabolomics and virome data.</p>
-      <div class="card-footer">
-        <div class="card-tags"><span class="tag">Metabolomics</span><span class="tag">Virome</span><span class="tag">760 Subjects</span></div>
-        <span class="card-link">Visit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></span>
-      </div>
-    </a>
-
-    <!-- ImmPort -->
-    <a class="card" data-accent="blue" data-cat="platform" data-search="immport immunology database portal" href="#" target="_blank">
-      <div class="card-row-top">
-        <div class="card-icon-wrap blue">🛡️</div>
-        <span class="badge live">Live</span>
-      </div>
-      <h3>ImmPort</h3>
-      <p class="desc">Immunology Database and Analysis Portal — additional cohort data integrated into the MAI-T1D multimodal pipeline.</p>
-      <div class="card-footer">
-        <div class="card-tags"><span class="tag">Immunology</span><span class="tag">Open Data</span></div>
-        <span class="card-link">Visit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></span>
-      </div>
-    </a>
-
   </div>
 </div>
 
@@ -634,17 +634,17 @@ footer {
   <div class="section-head">
     <div class="section-icon" style="background:var(--blue-50);color:var(--blue-600)">🤖</div>
     <h2>Foundation Models</h2>
-    <span class="section-count">3 models</span>
+    <span class="section-count">4 models</span>
   </div>
   <div class="card-grid">
 
     <!-- EPCOT-v2 -->
-    <a class="card" data-accent="violet" data-cat="fm" data-search="epcot genomic foundation model dna chromatin" href="#" target="_blank">
+    <a class="card" data-accent="violet" data-cat="fm" data-search="epcot genomics foundation model dna chromatin epigenomics" href="https://epcot.io/" target="_blank">
       <div class="card-row-top">
         <div class="card-icon-wrap violet">🧪</div>
         <span class="badge github">GitHub</span>
       </div>
-      <h3>EPCOT-v2 — Genomic Foundation Model</h3>
+      <h3>Genomics Foundation Model</h3>
       <p class="desc">Predicts epigenomic profiles and chromatin organization from DNA sequences. Core genomic FM of the MAI-T1D foundation stack.</p>
       <div class="card-footer">
         <div class="card-tags"><span class="tag">Genomics</span><span class="tag">Epigenomics</span><span class="tag">DNA</span></div>
@@ -653,12 +653,12 @@ footer {
     </a>
 
     <!-- scFM -->
-    <a class="card" data-accent="violet" data-cat="fm" data-search="scfm epiagent single cell foundation model rna" href="#" target="_blank">
+    <a class="card" data-accent="violet" data-cat="fm" data-search="single cell foundation model rna scfm epiagent transcriptomics" href="https://github.com/BaoXinyu2002/single_cell_FM" target="_blank">
       <div class="card-row-top">
         <div class="card-icon-wrap violet">🔬</div>
         <span class="badge github">GitHub</span>
       </div>
-      <h3>scFM / EpiAgent — Single-cell FM</h3>
+      <h3>Sing-cell Foundation Model</h3>
       <p class="desc">Foundation model for single-cell transcriptomics and epigenomics analysis. Supports cell-type annotation, gene program discovery, and perturbation prediction.</p>
       <div class="card-footer">
         <div class="card-tags"><span class="tag">scRNA-seq</span><span class="tag">scATAC-seq</span></div>
@@ -667,16 +667,30 @@ footer {
     </a>
 
     <!-- Kronos -->
-    <a class="card" data-accent="violet" data-cat="fm" data-search="kronos spatial foundation model transcriptomics tissue" href="#" target="_blank">
+    <a class="card" data-accent="violet" data-cat="fm" data-search="spatial foundation model transcriptomics tissue kronos" href="#" target="_blank">
       <div class="card-row-top">
         <div class="card-icon-wrap violet">🗺️</div>
         <span class="badge github">GitHub</span>
       </div>
-      <h3>Kronos — Spatial Foundation Model</h3>
+      <h3>Spatial Foundation Model</h3>
       <p class="desc">Foundation model for spatial transcriptomics. Models tissue architecture and cell–cell interactions in pancreatic islet microenvironments.</p>
       <div class="card-footer">
-        <div class="card-tags"><span class="tag">Spatial</span><span class="tag">CODEX</span><span class="tag">H&E</span></div>
+        <div class="card-tags"><span class="tag">Spatial</span><span class="tag">CODEX</span><span class="tag">H&amp;E</span></div>
         <span class="card-link">GitHub <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></span>
+      </div>
+    </a>
+
+    <!-- Knowledge Graph Government System -->
+    <a class="card" data-accent="amber" data-cat="fm" data-search="knowledge graph government system governance" href="https://mai-t1d-demo0316.vercel.app/" target="_blank">
+      <div class="card-row-top">
+        <div class="card-icon-wrap amber">🕸️</div>
+        <span class="badge beta">Demo</span>
+      </div>
+      <h3>Knowledge Graph Government System</h3>
+      <p class="desc">Interactive knowledge graph governance system for multimodal AI training data management across the MAI-T1D consortium.</p>
+      <div class="card-footer">
+        <div class="card-tags"><span class="tag">Knowledge Graph</span><span class="tag">Governance</span></div>
+        <span class="card-link">Visit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></span>
       </div>
     </a>
 
@@ -684,13 +698,125 @@ footer {
 </div>
 
 <!-- ═══════════════════════════════════════
-     SECTION: Tools & Governance
+     SECTION: Knowledge & Data Platforms
+     ═══════════════════════════════════════ -->
+<div class="section" data-section="platform">
+  <div class="section-head">
+    <div class="section-icon" style="background:var(--teal-50);color:var(--teal-600)">🧬</div>
+    <h2>Knowledge &amp; Data Platforms</h2>
+    <span class="section-count">7 resources</span>
+  </div>
+  <div class="card-grid">
+
+    <!-- GLKB -->
+    <a class="card" data-accent="teal" data-cat="platform" data-search="glkb genomics literature knowledge base pubmed agentic qa hypothesis" href="#" target="_blank">
+      <div class="card-row-top">
+        <div class="card-icon-wrap img-wrap"><img src="ICONS/GLKB.png" alt="GLKB"></div>
+        <span class="badge live">Live</span>
+      </div>
+      <h3>GLKB — Genomics Literature Knowledge Base</h3>
+      <p class="desc">PubMed-integrated knowledge platform with ML-enhanced search, agentic Q&amp;A in biomedicine, and AI-driven hypothesis generation.</p>
+      <div class="card-footer">
+        <div class="card-tags"><span class="tag">PubMed</span><span class="tag">NLP</span><span class="tag">Knowledge Graph</span></div>
+        <span class="card-link">Visit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></span>
+      </div>
+    </a>
+
+    <!-- PanKbase -->
+    <a class="card" data-accent="teal" data-cat="platform" data-search="pankbase pancreas knowledge graph hirn diabetes" href="https://pankgraph.org/" target="_blank">
+      <div class="card-row-top">
+        <div class="card-icon-wrap img-wrap"><img src="ICONS/PanKbase.jpg" alt="PanKbase"></div>
+        <span class="badge live">Live</span>
+      </div>
+      <h3>PanKbase</h3>
+      <p class="desc">PanKbase is a comprehensive, centralized resource for the study of the human pancreas and diabetes.</p>
+      <div class="card-footer">
+        <div class="card-tags"><span class="tag">HIRN</span><span class="tag">Pancreas</span><span class="tag">Diabetes</span></div>
+        <span class="card-link">Visit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></span>
+      </div>
+    </a>
+
+    <!-- HPAP -->
+    <a class="card" data-accent="blue" data-cat="platform" data-search="hpap human pancreas analysis program donor portal multimodal islet" href="https://hirnetwork.org/hpap-overview" target="_blank">
+      <div class="card-row-top">
+        <div class="card-icon-wrap img-wrap"><img src="ICONS/HPAP.jpg" alt="HPAP"></div>
+        <span class="badge live">Live</span>
+      </div>
+      <h3>HPAP — Human Pancreas Analysis Program</h3>
+      <p class="desc">The Human Pancreas Analysis Program seeks to provide comprehensive molecular profiling in unprecedented detail of the pancreatic islet at various stages of type 1 diabetes.</p>
+      <div class="card-footer">
+        <div class="card-tags"><span class="tag">200+ Donors</span><span class="tag">20+ Modalities</span></div>
+        <span class="card-link">Visit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></span>
+      </div>
+    </a>
+
+    <!-- TEDDY -->
+    <a class="card" data-accent="blue" data-cat="platform" data-search="teddy ncc1 metabolomics virome longitudinal cohort environmental determinants" href="https://teddy.epi.usf.edu/" target="_blank">
+      <div class="card-row-top">
+        <div class="card-icon-wrap img-wrap"><img src="ICONS/TEDDY.jpg" alt="TEDDY"></div>
+        <span class="badge coming">Cohort</span>
+      </div>
+      <h3>TEDDY NCC1</h3>
+      <p class="desc">The TEDDY study - The Environmental Determinants of Diabetes in the Young - is looking for the causes of type 1 diabetes mellitus (T1DM).</p>
+      <div class="card-footer">
+        <div class="card-tags"><span class="tag">Metabolomics</span><span class="tag">Virome</span><span class="tag">Longitudinal</span></div>
+        <span class="card-link">Visit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></span>
+      </div>
+    </a>
+
+    <!-- ImmPort -->
+    <a class="card" data-accent="blue" data-cat="platform" data-search="immport immunology database portal niaid" href="https://www.immport.org/home" target="_blank">
+      <div class="card-row-top">
+        <div class="card-icon-wrap img-wrap"><img src="ICONS/IMMPORT.jpg" alt="ImmPort"></div>
+        <span class="badge live">Live</span>
+      </div>
+      <h3>ImmPort</h3>
+      <p class="desc">ImmPort is funded by the NIH, NIAID and DAIT in support of the NIH mission to share data with the public.</p>
+      <div class="card-footer">
+        <div class="card-tags"><span class="tag">Immunology</span><span class="tag">Open Data</span></div>
+        <span class="card-link">Visit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></span>
+      </div>
+    </a>
+
+    <!-- AI ready Datasets - HPAP -->
+    <a class="card" data-accent="teal" data-cat="platform" data-search="ai ready datasets hpap human pancreas analysis program processed curated" href="hpap-datasets.html" target="_blank">
+      <div class="card-row-top">
+        <div class="card-icon-wrap teal">🗄️</div>
+        <span class="badge coming">Coming Soon</span>
+      </div>
+      <h3>AI ready Datasets - HPAP</h3>
+      <p class="desc">Curated, AI-ready datasets derived from the Human Pancreas Analysis Program — preprocessed and standardized for direct use in MAI-T1D foundation model training and benchmarking.</p>
+      <div class="card-footer">
+        <div class="card-tags"><span class="tag">HPAP</span><span class="tag">AI-Ready</span><span class="tag">Multimodal</span></div>
+        <span class="card-link">Visit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></span>
+      </div>
+    </a>
+
+    <!-- Use Cases -->
+    <a class="card" data-accent="blue" data-cat="platform" data-search="use cases applications t1d diabetes ai demos tutorials examples" href="use-cases.html" target="_blank">
+      <div class="card-row-top">
+        <div class="card-icon-wrap blue">💡</div>
+        <span class="badge coming">Coming Soon</span>
+      </div>
+      <h3>Use Cases</h3>
+      <p class="desc">Showcased applications and end-to-end workflows demonstrating how MAI-T1D models and data platforms can be applied to real-world T1D research questions.</p>
+      <div class="card-footer">
+        <div class="card-tags"><span class="tag">Applications</span><span class="tag">Workflows</span><span class="tag">T1D</span></div>
+        <span class="card-link">Visit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></span>
+      </div>
+    </a>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     SECTION: Tools & Agents & Governance
      ═══════════════════════════════════════ -->
 <div class="section" data-section="tool">
   <div class="section-head">
     <div class="section-icon" style="background:rgba(217,119,6,0.08);color:var(--amber-600)">⚙️</div>
-    <h2>Tools, Agents & Governance</h2>
-    <span class="section-count">3 resources</span>
+    <h2>Tools, Agents &amp; Governance</h2>
+    <span class="section-count">2 resources</span>
   </div>
   <div class="card-grid">
 
@@ -708,31 +834,17 @@ footer {
       </div>
     </a>
 
-    <!-- Data Trace -->
-    <a class="card" data-accent="amber" data-cat="tool" data-search="data trace lineage tracking provenance pipeline" href="#" target="_blank">
+    <!-- MAI-T1D Foundation Stack -->
+    <a class="card" data-accent="blue" data-cat="tool" data-search="mai-t1d foundation stack github models pipeline" href="https://github.com/USF-HII/MAI-T1D-Foundation-Stack" target="_blank">
       <div class="card-row-top">
-        <div class="card-icon-wrap amber">📍</div>
-        <span class="badge beta">Beta</span>
+        <div class="card-icon-wrap blue">💻</div>
+        <span class="badge github">GitHub</span>
       </div>
-      <h3>Data Trace & Lineage</h3>
-      <p class="desc">End-to-end data lineage tracking for the MAI-T1D pipeline — from raw data ingestion through preprocessing to foundation model training.</p>
+      <h3>MAI-T1D Foundation Stack</h3>
+      <p class="desc">Central GitHub repository for the MAI-T1D foundation model stack — integrating genomics, single-cell, and spatial foundation models for T1D research.</p>
       <div class="card-footer">
-        <div class="card-tags"><span class="tag">Provenance</span><span class="tag">Lineage</span></div>
-        <span class="card-link">Visit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></span>
-      </div>
-    </a>
-
-    <!-- Governance Agent -->
-    <a class="card" data-accent="emerald" data-cat="tool" data-search="governance agent ai automated audit staleness leakage" href="#" target="_blank">
-      <div class="card-row-top">
-        <div class="card-icon-wrap emerald">🤖</div>
-        <span class="badge coming">Coming Soon</span>
-      </div>
-      <h3>Governance Agent</h3>
-      <p class="desc">AI agent for automated data governance — detects data staleness, cross-model donor leakage risks, and upstream event impact propagation.</p>
-      <div class="card-footer">
-        <div class="card-tags"><span class="tag">AI Agent</span><span class="tag">Audit</span></div>
-        <span class="card-link">Details <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></span>
+        <div class="card-tags"><span class="tag">Foundation Models</span><span class="tag">Pipeline</span></div>
+        <span class="card-link">GitHub <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></span>
       </div>
     </a>
 
@@ -740,65 +852,27 @@ footer {
 </div>
 
 <!-- ═══════════════════════════════════════
-     SECTION: Publications
+     SECTION: Literature Review
      ═══════════════════════════════════════ -->
-<div class="section" data-section="publication">
+<div class="section" data-section="litreview">
   <div class="section-head">
-    <div class="section-icon" style="background:var(--violet-100);color:var(--violet-600)">📄</div>
-    <h2>Publications</h2>
-    <span class="section-count">4 papers</span>
+    <div class="section-icon" style="background:var(--violet-100);color:var(--violet-600)">📖</div>
+    <h2>Literature Review</h2>
+    <span class="section-count">1 resource</span>
   </div>
   <div class="card-grid">
 
-    <a class="card" data-accent="violet" data-cat="publication" data-search="epcot nature methods genomic epigenomic chromatin" href="#" target="_blank">
+    <!-- TEDDY Metabolomics -->
+    <a class="card" data-accent="violet" data-cat="litreview" data-search="teddy metabolomics lipidomics literature review" href="https://teddy-data-metabolomics-lipidomics.vercel.app/" target="_blank">
       <div class="card-row-top">
         <div class="card-icon-wrap violet">📑</div>
-        <span class="badge published">Published</span>
+        <span class="badge live">Live</span>
       </div>
-      <h3>EPCOT: Epigenomic Profile Prediction</h3>
-      <p class="desc">Predicting chromatin organization and epigenomic profiles from DNA sequence — published in Nature Methods.</p>
+      <h3>TEDDY Metabolomics</h3>
+      <p class="desc">Literature review and data explorer for TEDDY metabolomics and lipidomics datasets — supporting multimodal T1D research and biomarker discovery.</p>
       <div class="card-footer">
-        <div class="card-tags"><span class="tag">Nature Methods</span></div>
-        <span class="card-link">Paper <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></span>
-      </div>
-    </a>
-
-    <a class="card" data-accent="blue" data-cat="publication" data-search="knowledge graph governance nature communications natcomms prov training data" href="#" target="_blank">
-      <div class="card-row-top">
-        <div class="card-icon-wrap blue">📑</div>
-        <span class="badge submitted">Submitted</span>
-      </div>
-      <h3>KG-based Governance for AI Training Data</h3>
-      <p class="desc">PROV-inspired Knowledge Graph framework for automated governance of evolving multimodal biomedical AI training data. Submitted to Nature Communications.</p>
-      <div class="card-footer">
-        <div class="card-tags"><span class="tag">Nature Comms</span><span class="tag">Governance</span></div>
-        <span class="card-link">Preprint <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></span>
-      </div>
-    </a>
-
-    <a class="card" data-accent="rose" data-cat="publication" data-search="t1d review multimodal ai type 1 diabetes cell" href="#" target="_blank">
-      <div class="card-row-top">
-        <div class="card-icon-wrap rose">📑</div>
-        <span class="badge coming">In Prep</span>
-      </div>
-      <h3>Multimodal AI for T1D — Review</h3>
-      <p class="desc">Comprehensive review of multimodal AI approaches in Type 1 Diabetes research across major data programs (nPOD, HPAP, TEDDY, ENDIA, TrialNet, and more).</p>
-      <div class="card-footer">
-        <div class="card-tags"><span class="tag">Review</span><span class="tag">T1D</span></div>
-        <span class="card-link">Details <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></span>
-      </div>
-    </a>
-
-    <a class="card" data-accent="teal" data-cat="publication" data-search="glkb paper genomics literature knowledge base publication" href="#" target="_blank">
-      <div class="card-row-top">
-        <div class="card-icon-wrap teal">📑</div>
-        <span class="badge published">Published</span>
-      </div>
-      <h3>GLKB: Genomics Literature Knowledge Base</h3>
-      <p class="desc">Construction and application of a large-scale genomics literature knowledge base with ML-enhanced biomedical text mining.</p>
-      <div class="card-footer">
-        <div class="card-tags"><span class="tag">Knowledge Base</span><span class="tag">NLP</span></div>
-        <span class="card-link">Paper <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></span>
+        <div class="card-tags"><span class="tag">TEDDY</span><span class="tag">Metabolomics</span><span class="tag">Lipidomics</span></div>
+        <span class="card-link">Visit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></span>
       </div>
     </a>
 
@@ -811,12 +885,12 @@ footer {
 <div class="section" data-section="wiki">
   <div class="section-head">
     <div class="section-icon" style="background:var(--bg-subtle);color:var(--text-secondary)">📖</div>
-    <h2>Wiki & Documentation</h2>
+    <h2>Wiki &amp; Documentation</h2>
     <span class="section-count">2 resources</span>
   </div>
   <div class="card-grid">
 
-    <a class="card" data-accent="teal" data-cat="wiki" data-search="wiki documentation internal knowledge onboarding protocol" href="#" target="_blank">
+    <a class="card" data-accent="teal" data-cat="wiki" data-search="wiki documentation internal knowledge onboarding protocol" href="#" onclick="openWikiPage(event)">
       <div class="card-row-top">
         <div class="card-icon-wrap teal">📘</div>
         <span class="badge live">Live</span>
@@ -829,7 +903,7 @@ footer {
       </div>
     </a>
 
-    <a class="card" data-accent="blue" data-cat="wiki" data-search="github repository code organization mai-t1d" href="#" target="_blank">
+    <a class="card" data-accent="blue" data-cat="wiki" data-search="github repository code organization mai-t1d" href="https://github.com/silverichim/mai-t1d-model-card-and-data-card" target="_blank">
       <div class="card-row-top">
         <div class="card-icon-wrap blue">💻</div>
         <span class="badge github">GitHub</span>
@@ -852,12 +926,13 @@ footer {
   <div class="container">
     <div class="footer-label">Participating Laboratories</div>
     <div class="pi-labs">
-      <a class="pi-chip" href="#" target="_blank">Jie Liu Lab <span class="inst">UMich</span></a>
-      <a class="pi-chip" href="#" target="_blank">Steve Parker Lab <span class="inst">UMich</span></a>
-      <a class="pi-chip" href="#" target="_blank">Marcela Brissova Lab <span class="inst">Vanderbilt</span></a>
-      <a class="pi-chip" href="#" target="_blank">Shuibing Chen Lab <span class="inst">Cornell</span></a>
-      <a class="pi-chip" href="#" target="_blank">USF PI Lab <span class="inst">USF</span></a>
-      <a class="pi-chip" href="#" target="_blank">UCLA PI Lab <span class="inst">UCLA</span></a>
+      <a class="pi-chip" href="https://jieliu6.github.io/" target="_blank">Jie Liu Lab <span class="inst">UMich</span></a>
+      <a class="pi-chip" href="http://theparkerlab.org/" target="_blank">Steve Parker Lab <span class="inst">UMich</span></a>
+      <a class="pi-chip" href="https://www.powersbrissovaresearch.org/" target="_blank">Marcela Brissova Lab <span class="inst">Vanderbilt</span></a>
+      <a class="pi-chip" href="https://www.chen-stemcell-lab.com/" target="_blank">Shuibing Chen Lab <span class="inst">Cornell</span></a>
+      <a class="pi-chip" href="https://www.hii.usf.edu/faculty-and-staff/KennethYoung.html" target="_blank">USF PI Kenneth Young <span class="inst">USF</span></a>
+      <a class="pi-chip" href="https://web.cs.ucla.edu/~weiwang/" target="_blank">Wei Wang Lab <span class="inst">UCLA</span></a>
+      <a class="pi-chip" href="https://web.cs.ucla.edu/~kwchang/" target="_blank">UCLA PI Kai-Wei Chang <span class="inst">UCLA</span></a>
     </div>
     <div class="footer-bottom">
       MAI-T1D is supported by the National Institutes of Health · <a href="#">NIH Grant Info</a>
@@ -910,6 +985,18 @@ function applyFilters() {
       sec.style.display = visibleCount > 0 || currentFilter === 'all' ? '' : 'none';
     }
   });
+}
+
+// ── Wiki Overlay ──
+function openWikiPage(e) {
+  e.preventDefault();
+  document.getElementById('wikiOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeWikiPage() {
+  document.getElementById('wikiOverlay').classList.remove('active');
+  document.body.style.overflow = '';
 }
 
 // ── Stagger card entrance animations ──
