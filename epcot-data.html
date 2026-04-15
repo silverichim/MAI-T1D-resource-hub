@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EPCOT Data | MAI-T1D</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f8fafb;
+  --bg-white: #ffffff;
+  --bg-subtle: #f0f4f6;
+  --border: #dce4ea;
+  --text: #1a2b3c;
+  --text-secondary: #4a6274;
+  --text-muted: #8899a8;
+  --teal-600: #0d9488;
+  --teal-500: #14b8a6;
+  --teal-50: #f0fdfa;
+  --violet-600: #7c3aed;
+  --violet-100: #ede9fe;
+  --shadow-sm: 0 1px 3px rgba(26,43,60,0.06);
+  --shadow-md: 0 4px 16px rgba(26,43,60,0.08);
+  --radius: 12px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 20px;
+  -webkit-font-smoothing: antialiased;
+}
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(124,58,237,0.04), transparent),
+    radial-gradient(ellipse 60% 50% at 85% 80%, rgba(37,99,160,0.04), transparent);
+}
+.card {
+  position: relative; z-index: 1;
+  background: var(--bg-white);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 40px 48px;
+  box-shadow: var(--shadow-md);
+  max-width: 640px;
+  width: 100%;
+}
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--teal-600);
+  text-decoration: none;
+  margin-bottom: 32px;
+}
+.back-btn:hover { opacity: 0.75; }
+.card-icon {
+  width: 52px; height: 52px;
+  background: var(--violet-100);
+  border-radius: 13px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px;
+  margin-bottom: 20px;
+}
+h1 {
+  font-family: 'Source Serif 4', serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+.intro {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  margin-bottom: 24px;
+  border-left: 3px solid var(--violet-600);
+  padding-left: 16px;
+}
+.divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 24px 0;
+}
+h2 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin-bottom: 14px;
+}
+ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+ul li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+ul li::before {
+  content: '•';
+  color: var(--violet-600);
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.github-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--text);
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: opacity 0.2s;
+}
+.github-link:hover { opacity: 0.85; }
+.github-link svg { width: 16px; height: 16px; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <a class="back-btn" href="index.html">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Back to Resource Hub
+    </a>
+
+    <div class="card-icon">🧬</div>
+    <h1>EPCOT Data</h1>
+
+    <p class="intro">
+      EPCOT v2 is a general AI model that predicts cell type-specific/context-specific regulatory signals from ATAC-seq data and DNA sequences.
+    </p>
+
+    <hr class="divider">
+
+    <h2>Predicted Modalities</h2>
+    <ul>
+      <li>Nascent transcription signals (e.g., PRO-seq, GRO-seq, TT-seq, Bru-seq)</li>
+      <li>Gene expression profiles from total and polyA+ RNA-seq</li>
+      <li>Transcription factor binding and histone modifications</li>
+      <li>3D chromatin organization, including Micro-C, Hi-C, and ChIA-PET contact maps</li>
+      <li>Transcription initiation signals (e.g., CAGE-seq, GRO-cap, PRO-cap)</li>
+      <li>Synthetic enhancer activity measured by STARR-seq</li>
+    </ul>
+
+    <a class="github-link" href="https://github.com/liu-bioinfo-lab/general_AI_model" target="_blank">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+      GitHub — liu-bioinfo-lab/general_AI_model
+    </a>
+  </div>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Ready Datasets - HPAP | MAI-T1D</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f8fafb;
+  --bg-white: #ffffff;
+  --border: #dce4ea;
+  --text: #1a2b3c;
+  --text-secondary: #4a6274;
+  --text-muted: #8899a8;
+  --teal-600: #0d9488;
+  --teal-500: #14b8a6;
+  --teal-50: #f0fdfa;
+  --shadow-sm: 0 1px 3px rgba(26,43,60,0.06);
+  --radius: 12px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  -webkit-font-smoothing: antialiased;
+}
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(14,184,166,0.05), transparent),
+    radial-gradient(ellipse 60% 50% at 85% 80%, rgba(37,99,160,0.04), transparent);
+}
+.card {
+  position: relative; z-index: 1;
+  background: var(--bg-white);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 48px 56px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  max-width: 480px;
+  width: 90%;
+}
+.icon {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+h1 {
+  font-family: 'Source Serif 4', serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+.sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  color: var(--teal-600);
+  background: var(--teal-50);
+  border: 1px solid rgba(14,184,166,0.2);
+  border-radius: 8px;
+  padding: 6px 16px;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--teal-600);
+  text-decoration: none;
+}
+a:hover { opacity: 0.75; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="icon">🗄️</div>
+    <h1>AI Ready Datasets - HPAP</h1>
+    <div class="sub">Coming Soon</div>
+    <p>Curated, AI-ready datasets derived from the Human Pancreas Analysis Program are currently being prepared. Check back soon.</p>
+    <a href="MAI-T1D ResourceHub index.html">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Back to Resource Hub
+    </a>
+  </div>
+</body>
+</html>
