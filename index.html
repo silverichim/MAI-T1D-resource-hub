@@ -564,24 +564,8 @@ footer {
 .hidden { display: none !important; }
 </style>
 
-<!-- ═══════ Microsoft Clarity ═══════ -->
-<script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "wt2guz9ppg");
-</script>
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-SFHVYR3HSS"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-SFHVYR3HSS');
-</script>
+<link rel="stylesheet" href="disclosure.css">
+<script src="disclosure.js"></script>
 
 </head>
 <body>
@@ -1062,6 +1046,17 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 </script>
+
+<!-- ═══════ Privacy Disclosure Banner ═══════ -->
+<div id="disclosure-banner">
+  <span class="disclosure-text">
+    This site uses Microsoft Clarity and Google Analytics to understand how the resource hub is used. No personal data is collected.
+  </span>
+  <span class="disclosure-actions">
+    <button class="btn-accept" type="button">Accept</button>
+    <button class="btn-decline" type="button">Decline</button>
+  </span>
+</div>
 
 </body>
 </html>

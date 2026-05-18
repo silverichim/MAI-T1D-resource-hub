@@ -1,0 +1,81 @@
+/*
+ * MAI-T1D Resource Hub — Privacy Disclosure Banner
+ * Matches the existing teal/blue academic design system.
+ */
+
+#disclosure-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  background: var(--bg-white, #ffffff);
+  border-top: 1px solid var(--border, #dce4ea);
+  box-shadow: 0 -4px 24px rgba(26,43,60,0.10);
+  padding: 18px 28px;
+  display: none;                     /* hidden by default; JS shows it */
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  animation: disclosureSlideUp 0.35s ease;
+  font-family: 'DM Sans', sans-serif;
+}
+
+#disclosure-banner.visible {
+  display: flex;
+}
+
+@keyframes disclosureSlideUp {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+#disclosure-banner .disclosure-text {
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--text-secondary, #4a6274);
+  max-width: 620px;
+}
+
+#disclosure-banner .disclosure-text a {
+  color: var(--teal-600, #0d9488);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+#disclosure-banner .disclosure-actions {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+#disclosure-banner button {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 9px 22px;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: background 0.15s, box-shadow 0.15s, opacity 0.15s;
+  border: none;
+}
+
+#disclosure-banner .btn-accept {
+  background: var(--teal-600, #0d9488);
+  color: #fff;
+}
+#disclosure-banner .btn-accept:hover {
+  background: #0b7a71;
+  box-shadow: 0 2px 10px rgba(13,148,136,0.25);
+}
+
+#disclosure-banner .btn-decline {
+  background: transparent;
+  color: var(--text-secondary, #4a6274);
+  border: 1.5px solid var(--border, #dce4ea);
+}
+#disclosure-banner .btn-decline:hover {
+  background: var(--bg-subtle, #f0f4f6);
+  border-color: var(--border-hover, #9ec5d4);
+}

@@ -88,6 +88,9 @@ a {
 }
 a:hover { opacity: 0.75; }
 </style>
+<link rel="stylesheet" href="disclosure.css">
+<script src="disclosure.js"></script>
+
 </head>
 <body>
   <div class="card">
@@ -100,5 +103,16 @@ a:hover { opacity: 0.75; }
       Back to Resource Hub
     </a>
   </div>
+<!-- ═══════ Privacy Disclosure Banner ═══════ -->
+<div id="disclosure-banner">
+  <span class="disclosure-text">
+    This site uses Microsoft Clarity and Google Analytics to understand how the resource hub is used. No personal data is collected.
+  </span>
+  <span class="disclosure-actions">
+    <button class="btn-accept" type="button">Accept</button>
+    <button class="btn-decline" type="button">Decline</button>
+  </span>
+</div>
+
 </body>
 </html>
