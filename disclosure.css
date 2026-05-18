@@ -61,13 +61,23 @@
   border: none;
 }
 
-#disclosure-banner .btn-accept {
+#disclosure-banner .btn-accept-all {
   background: var(--teal-600, #0d9488);
   color: #fff;
 }
-#disclosure-banner .btn-accept:hover {
+#disclosure-banner .btn-accept-all:hover {
   background: #0b7a71;
   box-shadow: 0 2px 10px rgba(13,148,136,0.25);
+}
+
+#disclosure-banner .btn-accept-ga {
+  background: var(--teal-50, #f0fdfa);
+  color: var(--teal-600, #0d9488);
+  border: 1.5px solid rgba(13,148,136,0.35);
+}
+#disclosure-banner .btn-accept-ga:hover {
+  background: var(--teal-100, #ccfbf1);
+  border-color: var(--teal-500, #14b8a6);
 }
 
 #disclosure-banner .btn-decline {
