@@ -1869,10 +1869,10 @@ function vcRender(total, mode) {
   vcRollTo(document.getElementById('vcNum'), total);
   document.getElementById('vcTotal').textContent = mode === 'local'
     ? 'this browser only (approx.)'
-    : 'since August 2026';
+    : 'since launch';
   pill.title = mode === 'local'
     ? 'Shared counter unreachable — showing an approximate count from this browser.'
-    : 'Visitors since August 2026. Each browser session counts once, however many times the page is reloaded.';
+    : 'Visitors since the hub launched. Each browser session counts once, however many times the page is reloaded.';
 }
 
 async function vcRemote() {
