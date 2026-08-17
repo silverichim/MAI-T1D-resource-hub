@@ -4,6 +4,23 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MAI-T1D Resource Hub</title>
+<meta name="description" content="Foundation models, data platforms, tools, and publications from MAI-T1D — an NIH/ODSS-funded five-institution consortium building multimodal AI for type 1 diabetes research.">
+
+<!-- Social preview. Once the hub has a public URL, set og:url and og:image to
+     absolute https:// links (og:image must be absolute — relative paths are
+     ignored by Slack, X, and LinkedIn) and switch twitter:card to
+     summary_large_image. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="MAI-T1D">
+<meta property="og:title" content="MAI-T1D Resource Hub">
+<meta property="og:description" content="Foundation models, data platforms, tools, and publications for multimodal AI research in type 1 diabetes.">
+<!-- <meta property="og:url" content="https://REPLACE-ME/"> -->
+<!-- <meta property="og:image" content="https://REPLACE-ME/social-card.png"> -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MAI-T1D Resource Hub">
+<meta name="twitter:description" content="Foundation models, data platforms, tools, and publications for multimodal AI research in type 1 diabetes.">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230d9488'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='19' font-weight='700' fill='%23ffffff' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E">
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 /* ══════════════════════════════════════════
@@ -275,6 +292,31 @@ h1 .accent {
   padding: 3px 10px;
 }
 
+/* ── Sub-groups inside a section (used by Publications) ── */
+.card-group + .card-group { margin-top: 34px; }
+.card-group-head {
+  margin-bottom: 16px;
+  padding-left: 2px;
+  border-left: 2px solid var(--border);
+  padding-left: 12px;
+}
+.card-group-head .cg-title {
+  display: block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 5px;
+}
+.card-group-head .cg-note {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.55;
+  max-width: 760px;
+}
+
 /* ══════════════════════════════════════════
    CARD GRID
    ══════════════════════════════════════════ */
@@ -369,6 +411,21 @@ h1 .accent {
 .badge.accepted { background: rgba(5,150,105,0.08); color: var(--emerald-600); border: 1px solid rgba(5,150,105,0.15); }
 .badge.submitted { background: rgba(37,99,160,0.06); color: var(--blue-600); border: 1px solid rgba(37,99,160,0.12); }
 .badge.github { background: rgba(26,43,60,0.06); color: var(--text-secondary); border: 1px solid rgba(26,43,60,0.1); }
+.badge.concept { background: rgba(225,29,72,0.06); color: var(--rose-600); border: 1px solid rgba(225,29,72,0.15); }
+
+/* Marks a card as an exploratory idea rather than a resource people can rely on. */
+.idea-note {
+  display: block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--rose-600);
+  background: rgba(225,29,72,0.04);
+  border: 1px dashed rgba(225,29,72,0.25);
+  border-radius: 8px;
+  padding: 7px 10px;
+  margin-bottom: 10px;
+}
 
 .card h3 {
   font-family: 'DM Sans', sans-serif;
@@ -599,6 +656,13 @@ footer {
 }
 .fact-row dd a { color: var(--teal-600); text-decoration: none; }
 .fact-row dd a:hover { text-decoration: underline; }
+.fact-row dd .role {
+  display: block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+  margin: 1px 0 2px;
+}
 
 .cite-box {
   grid-column: 1 / -1;
@@ -855,7 +919,8 @@ footer {
     <div class="wiki-page-icon">📘</div>
     <div class="wiki-page-title">MAI-T1D Project Wiki</div>
     <div class="wiki-access-notice">
-      Access need email <strong>kailiua@umich.edu</strong> — open only for NIH audit and internal use.
+      Access is limited to consortium members and NIH review — request it by emailing
+      <strong><span class="email" data-user="kailiua" data-domain="umich.edu">kailiua [at] umich.edu</span></strong>.
     </div>
   </div>
 </div>
@@ -882,15 +947,15 @@ footer {
 
   <div class="visitor-counter is-pending" id="visitorCounter" aria-live="polite">
     <span class="vc-dot"></span>
-    <span>You're visitor <span class="vc-num" id="vcNum">276</span></span>
+    <span><span class="vc-num" id="vcNum">356</span> visitors so far</span>
     <span class="vc-sep">·</span>
-    <span class="vc-total" id="vcTotal">counting visits…</span>
+    <span class="vc-total" id="vcTotal">counting…</span>
   </div>
 </header>
 
 <!-- ═══════ STATS ═══════ -->
 <div class="stats-bar">
-  <div class="stat"><div class="stat-num">~ 40K+</div><div class="stat-label">Samples</div></div>
+  <div class="stat"><div class="stat-num">40K+</div><div class="stat-label">Samples</div></div>
   <div class="stat"><div class="stat-num">200+</div><div class="stat-label">HPAP Donors</div></div>
   <div class="stat"><div class="stat-num">20+</div><div class="stat-label">Modalities</div></div>
   <div class="stat"><div class="stat-num" id="statCohorts">5</div><div class="stat-label">Source Cohorts</div></div>
@@ -899,8 +964,6 @@ footer {
 
 <!-- ═══════════════════════════════════════
      ABOUT
-     DEMO CONTENT — replace the copy and contact
-     details before publishing.
      ═══════════════════════════════════════ -->
 <section class="about-block" id="about" data-hide-on-filter>
   <div>
@@ -926,7 +989,7 @@ footer {
     </div>
     <div class="fact-row">
       <dt>Lead institution</dt>
-      <dd>University of Michigan — Jie Liu Lab</dd>
+      <dd>University of Michigan</dd>
     </div>
     <div class="fact-row">
       <dt>Partners</dt>
@@ -938,7 +1001,7 @@ footer {
     </div>
     <div class="fact-row">
       <dt>Contact</dt>
-      <dd><a href="mailto:kailiua@umich.edu">kailiua@umich.edu</a></dd>
+      <dd>Kai Liu<span class="role">Project Manager</span><span class="email" data-user="kailiua" data-domain="umich.edu">kailiua [at] umich.edu</span></dd>
     </div>
   </dl>
 
@@ -1118,7 +1181,7 @@ footer {
   <div class="card-grid">
 
     <!-- KG Governance Demo -->
-    <a class="card" data-origin="mai-t1d" data-accent="amber" data-cat="tool" data-search="knowledge graph governance government system provenance data trace prov demo consortium" href="https://mai-t1d-demo0316.vercel.app/" target="_blank" rel="noopener noreferrer">
+    <a class="card" data-origin="mai-t1d" data-accent="amber" data-cat="tool" data-search="knowledge graph governance government system provenance data trace prov demo consortium" href="https://mai-t1d.404nfound.com/explore" target="_blank" rel="noopener noreferrer">
       <div class="card-row-top">
         <div class="card-icon-wrap amber">🕸️</div>
         <span class="badge beta">Demo</span>
@@ -1126,8 +1189,23 @@ footer {
       <h3>Data Governance Knowledge Graph</h3>
       <p class="desc">PROV-inspired knowledge graph for automated governance of evolving multimodal AI training data across the MAI-T1D consortium. Interactive demo with provenance graph, impact analysis, and governance agent views.</p>
       <div class="card-footer">
-        <div class="card-tags"><span class="tag">W3C PROV</span><span class="tag">Neo4j</span><span class="tag">Vercel</span></div>
+        <div class="card-tags"><span class="tag">W3C PROV</span><span class="tag">Neo4j</span><span class="tag">Provenance</span></div>
         <span class="card-link">Demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></span>
+      </div>
+    </a>
+
+    <!-- Immunology GPS — exploratory concept, not a consortium deliverable -->
+    <a class="card" data-origin="mai-t1d" data-accent="rose" data-cat="tool" data-search="immunology gps immune cell trafficking map concept prototype idea t1d nod mouse human cross-species evidence atlas transit map demo" href="https://immunology-gps-demo.vercel.app/" target="_blank" rel="noopener noreferrer">
+      <div class="card-row-top">
+        <div class="card-icon-wrap rose">🧭</div>
+        <span class="badge concept">Concept</span>
+      </div>
+      <h3>Immunology GPS</h3>
+      <span class="idea-note">An idea, shown as a prototype. Not a validated resource — nothing here should be cited or used for analysis.</span>
+      <p class="desc">Explores what it would look like to read immune cell trafficking in T1D as a transit map: organs are stations, trafficking routes are lines, and evidence strength is the road condition. Human and NOD mouse views sit side by side so gaps between the model organism and human data stay visible instead of disappearing.</p>
+      <div class="card-footer">
+        <div class="card-tags"><span class="tag">Immunology</span><span class="tag">Cross-species</span><span class="tag">Prototype</span></div>
+        <span class="card-link">View concept <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></span>
       </div>
     </a>
 
@@ -1150,9 +1228,9 @@ footer {
 
 <!-- ═══════════════════════════════════════
      SECTION: Publications
-     Every entry links to a public record (lab page, DOI,
-     arXiv, or ACL Anthology). Keep it that way — a card
-     with no destination belongs in the slide deck, not here.
+     Two groups: consortium output on T1D and biomedical AI,
+     then related methods work from member labs. Every entry
+     links to a public record (DOI, arXiv, or ACL Anthology).
      ═══════════════════════════════════════ -->
 <div class="section" data-section="pub">
   <div class="section-head">
@@ -1160,7 +1238,13 @@ footer {
     <h2>Publications</h2>
     <span class="section-count" data-noun="publications"></span>
   </div>
-  <div class="card-grid">
+
+  <div class="card-group">
+    <div class="card-group-head">
+      <span class="cg-title">T1D &amp; biomedical AI</span>
+      <p class="cg-note">Consortium work on type 1 diabetes data, biomedical models, and the platforms listed on this hub.</p>
+    </div>
+    <div class="card-grid">
 
     <!-- CelLink — Nucleic Acids Research -->
     <a class="card" data-origin="mai-t1d" data-accent="violet" data-cat="pub" data-search="cellink integrating single-cell multi-omics data weak feature linkage imbalanced cell populations nucleic acids research 2025 optimal transport luo liu brissova parker" href="https://doi.org/10.1093/nar/gkaf1270" target="_blank" rel="noopener noreferrer">
@@ -1267,6 +1351,16 @@ footer {
       </div>
     </a>
 
+    </div>
+  </div>
+
+  <div class="card-group">
+    <div class="card-group-head">
+      <span class="cg-title">Related AI methods from consortium labs</span>
+      <p class="cg-note">Machine-learning methods work by MAI-T1D investigators. These papers are not T1D-specific, but the techniques feed the models and evaluation pipelines above.</p>
+    </div>
+    <div class="card-grid">
+
     <!-- Preference Leakage — ICLR 2026 -->
     <a class="card" data-origin="mai-t1d" data-accent="violet" data-cat="pub" data-search="preference leakage contamination problem llm-as-a-judge iclr 2026 synthetic data evaluation bias li sun huang han zhang wang liu" href="https://arxiv.org/abs/2502.01534" target="_blank" rel="noopener noreferrer">
       <div class="card-row-top">
@@ -1372,6 +1466,7 @@ footer {
       </div>
     </a>
 
+    </div>
   </div>
 </div>
 
@@ -1459,10 +1554,10 @@ footer {
 
 <!-- ═══════════════════════════════════════
      DATA SOURCES & EXTERNAL RESOURCES
-     Verify each access label against the current
-     policy of the hosting study before publishing.
+     Access labels follow each hosting study's own policy;
+     re-check them when a study changes its terms.
      ═══════════════════════════════════════ -->
-<section class="sources-block" id="sources" data-hide-on-filter>
+<section class="sources-block" id="sources">
   <div class="band-label">
     <span class="band-rule"></span>
     <span>Sourced from</span>
@@ -1605,6 +1700,13 @@ function applyFilters() {
       }
     });
 
+    // A sub-group heading disappears with its cards.
+    sec.querySelectorAll('.card-group').forEach(group => {
+      const anyVisible = Array.from(group.querySelectorAll('.card'))
+        .some(c => c.style.display !== 'none');
+      group.style.display = anyVisible ? '' : 'none';
+    });
+
     totalVisible += visibleCount;
     sec.querySelector('.section-count').textContent = visibleCount + ' ' + sectionNoun(sec);
 
@@ -1617,6 +1719,25 @@ function applyFilters() {
   document.querySelectorAll('[data-hide-on-filter]').forEach(el => {
     el.style.display = browsing ? 'none' : '';
   });
+
+  // Source cohorts are searchable rather than hidden, so a query for "HPAP" or
+  // "TEDDY" still surfaces the cohort itself. Category filters describe what the
+  // consortium built, so the block steps aside for those.
+  const sources = document.getElementById('sources');
+  let sourceMatches = 0;
+  sources.querySelectorAll('.source-chip').forEach(chip => {
+    const hit = !query || chip.textContent.toLowerCase().includes(query);
+    chip.style.display = hit ? '' : 'none';
+    if (hit) sourceMatches++;
+  });
+  sources.querySelectorAll('.sources-group').forEach(group => {
+    const anyVisible = Array.from(group.querySelectorAll('.source-chip'))
+      .some(c => c.style.display !== 'none');
+    group.style.display = anyVisible ? '' : 'none';
+  });
+  const showSources = currentFilter === 'all' && sourceMatches > 0;
+  sources.style.display = showSources ? '' : 'none';
+  if (showSources && query) totalVisible += sourceMatches;
 
   document.getElementById('emptyState').classList.toggle('is-visible', totalVisible === 0);
 }
@@ -1657,11 +1778,34 @@ function closeWikiPage() {
   document.body.style.overflow = '';
 }
 
+// Escape and a click on the backdrop close the overlay, the way a dialog should.
+document.getElementById('wikiOverlay').addEventListener('click', e => {
+  if (e.target.id === 'wikiOverlay') closeWikiPage();
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && document.getElementById('wikiOverlay').classList.contains('active')) {
+    closeWikiPage();
+  }
+});
+
+// ── Email addresses ──
+// Written in the markup as "user [at] domain" and assembled here, so a scraper
+// reading the raw HTML doesn't collect a usable address.
+document.querySelectorAll('.email').forEach(el => {
+  const addr = el.dataset.user + '@' + el.dataset.domain;
+  const link = document.createElement('a');
+  link.href = 'mailto:' + addr;
+  link.textContent = addr;
+  el.replaceWith(link);
+});
+
 // ══════════════════════════════════════════
 // VISITOR COUNTER
 // ══════════════════════════════════════════
-// Shows a running visit tally in the header. The pill is always rendered;
-// only the number and the dot colour change depending on which backend answers.
+// Shows how many people have visited the hub. One browser session counts once,
+// no matter how many times the page is reloaded, so the number tracks visitors
+// rather than page views. The pill is always rendered; only the number and the
+// dot colour change depending on which backend answers.
 //
 //   green dot  — shared count from the remote counter (what runs in production)
 //   amber dot  — this browser only, because the remote counter was unreachable
@@ -1670,13 +1814,18 @@ function closeWikiPage() {
 // To switch to your own Vercel function later, point `base` at '/api' and expose
 // /api/hit/<key> and /api/get/<key> returning { "value": "123" }.
 // The remote key is public and cannot be deleted — to reset, choose a new key.
-// `offset` is added to whatever the backend returns, for carrying over history:
-// the remote key stood at 21 when this baseline was set, so 255 puts the live
-// display at 276 and every further visit increments from there.
+// `offset` is added to whatever the backend returns, so visits recorded before
+// this counter existed are carried over. It is set so the display starts at 356
+// and every further visitor increments from there.
+//
+// `countEveryVisit: false` is the published setting: a reload does not bump the
+// number. To verify the counter is still live without waiting for a new session,
+// open the page with ?vc=count appended to the URL — that forces one increment.
 const VISITOR_COUNTER = {
   base: 'https://countapi.mileshilliard.com/api/v1',
   key: 'mai_t1d_resource_hub_umich_2026',
-  offset: 255,
+  offset: 356,
+  countEveryVisit: false,
   sessionFlag: 'mait1d_hub_counted',
   localKey: 'mait1d_hub_local_visits',
   timeoutMs: 4000
@@ -1688,7 +1837,14 @@ function vcStore(store, key, value) {
     window[store].setItem(key, value);
   } catch (e) { return null; }
 }
-const vcCountedThisSession = () => vcStore('sessionStorage', VISITOR_COUNTER.sessionFlag) === '1';
+// ?vc=count forces this load to count, for spot-checking that the counter works.
+const vcForceCount = () => {
+  try { return new URLSearchParams(location.search).get('vc') === 'count'; }
+  catch (e) { return false; }
+};
+const vcCountedThisSession = () => !VISITOR_COUNTER.countEveryVisit
+  && !vcForceCount()
+  && vcStore('sessionStorage', VISITOR_COUNTER.sessionFlag) === '1';
 const vcMarkCounted = () => vcStore('sessionStorage', VISITOR_COUNTER.sessionFlag, '1');
 
 // Count up to the final number so it reads as a live tally, not a static label.
@@ -1712,11 +1868,11 @@ function vcRender(total, mode) {
   pill.classList.toggle('is-local', mode === 'local');
   vcRollTo(document.getElementById('vcNum'), total);
   document.getElementById('vcTotal').textContent = mode === 'local'
-    ? total.toLocaleString('en-US') + ' visits (approx.)'
-    : total.toLocaleString('en-US') + ' visits so far';
+    ? 'this browser only (approx.)'
+    : 'since August 2026';
   pill.title = mode === 'local'
-    ? 'Shared counter unreachable — showing an approximate count.'
-    : 'Total page visits since August 2026.';
+    ? 'Shared counter unreachable — showing an approximate count from this browser.'
+    : 'Visitors since August 2026. Each browser session counts once, however many times the page is reloaded.';
 }
 
 async function vcRemote() {
