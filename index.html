@@ -633,6 +633,8 @@ footer {
 }
 .about-block p:last-of-type { margin-bottom: 0; }
 .about-block strong { color: var(--text); font-weight: 600; }
+.about-block p a { color: var(--teal-600); text-decoration: none; font-weight: 500; }
+.about-block p a:hover { text-decoration: underline; }
 
 .about-facts {
   border-left: 1px solid var(--border);
@@ -935,7 +937,7 @@ footer {
   </div>
   <h1>MAI-T1D <span class="accent">Resource Hub</span></h1>
   <p class="subtitle">
-    Tools, data platforms, foundation models, and publications for multimodal AI research in Type 1 Diabetes — all in one place.
+    Foundation models, data platforms, tools, and publications for multimodal AI research in Type 1 Diabetes — all in one place.
   </p>
   <p class="meta-line">
     <span>University of Michigan</span>
@@ -957,9 +959,9 @@ footer {
 <div class="stats-bar">
   <div class="stat"><div class="stat-num">40K+</div><div class="stat-label">Samples</div></div>
   <div class="stat"><div class="stat-num">200+</div><div class="stat-label">HPAP Donors</div></div>
-  <div class="stat"><div class="stat-num">20+</div><div class="stat-label">Modalities</div></div>
+  <div class="stat"><div class="stat-num" id="statModels">4</div><div class="stat-label">Foundation Models</div></div>
   <div class="stat"><div class="stat-num" id="statCohorts">5</div><div class="stat-label">Source Cohorts</div></div>
-  <div class="stat"><div class="stat-num" id="statBuilt">13</div><div class="stat-label">Tools Built</div></div>
+  <div class="stat"><div class="stat-num" id="statBuilt">7</div><div class="stat-label">Tools Built</div></div>
 </div>
 
 <!-- ═══════════════════════════════════════
@@ -969,16 +971,18 @@ footer {
   <div>
     <h2>About MAI-T1D</h2>
     <p>
-      MAI-T1D is a five-institution consortium building <strong>multimodal AI foundation models
-      for type 1 diabetes research</strong>. We train and benchmark models across genomics,
-      single-cell, and spatial modalities, then link them back to donor-level biology through
-      harmonized cohort data.
+      MAI-T1D is a five-institution project building <strong>multimodal AI foundation models
+      for type 1 diabetes</strong>, trained and benchmarked across genomics, single-cell,
+      spatial, and immunological data from existing T1D resources to comprehensively
+      characterize disease progression. We also study the <strong>ethical side</strong> of this
+      work — participation leakage, content leakage, and safeguards such as split learning for
+      private whole-genome sequencing data.
+      <a href="#publications">See the publications below.</a>
     </p>
     <p>
-      This hub is where the consortium's public output lives: the foundation models themselves,
-      the data platforms they draw on, the governance tooling that tracks how training data
-      evolves, and the publications that come out of the work. Everything listed here is either
-      openly available or points to the access process for controlled data.
+      This hub hosts the consortium's public output: the models, the data platforms behind them,
+      the governance tooling that tracks how training data evolves, and the publications.
+      Everything is openly available or points to the access process for controlled data.
     </p>
   </div>
 
@@ -1010,7 +1014,7 @@ footer {
       <span class="cite-label">Acknowledgment — paste into your manuscript</span>
       <button class="copy-btn" type="button" id="citeCopyBtn" data-copy-target="citeText">Copy</button>
     </div>
-    <p class="cite-text" id="citeText">This work used resources developed by the MAI-T1D consortium, supported by the National Institutes of Health Office of Data Science Strategy under award OT2OD038003.</p>
+    <p class="cite-text" id="citeText">This work used resources developed by the MAI-T1D consortium, supported by the National Institutes of Health Office of Data Science Strategy through the Advancing Health Research through Multimodal AI program under award OT2OD038003.</p>
   </div>
 </section>
 
@@ -1021,6 +1025,7 @@ footer {
     <button class="filter-btn" type="button" data-filter="fm" aria-pressed="false">Foundation Models</button>
     <button class="filter-btn" type="button" data-filter="platform" aria-pressed="false">Platforms</button>
     <button class="filter-btn" type="button" data-filter="tool" aria-pressed="false">Tools &amp; Agents</button>
+    <button class="filter-btn" type="button" data-filter="ethics" aria-pressed="false">Ethical AI</button>
     <button class="filter-btn" type="button" data-filter="pub" aria-pressed="false">Publications</button>
     <button class="filter-btn" type="button" data-filter="litreview" aria-pressed="false">Literature Review</button>
     <button class="filter-btn" type="button" data-filter="wiki" aria-pressed="false">Wiki &amp; Docs</button>
@@ -1050,7 +1055,7 @@ footer {
   <div class="section-head">
     <div class="section-icon" style="background:var(--blue-50);color:var(--blue-600)">🤖</div>
     <h2>Foundation Models</h2>
-    <span class="section-count">3 models</span>
+    <span class="section-count">4 models</span>
   </div>
   <div class="card-grid">
 
@@ -1083,16 +1088,30 @@ footer {
     </a>
 
     <!-- Kronos -->
-    <a class="card" data-origin="mai-t1d" data-accent="violet" data-cat="fm" data-search="spatial foundation model transcriptomics tissue kronos" href="#" target="_blank" rel="noopener noreferrer">
+    <a class="card" data-origin="mai-t1d" data-accent="violet" data-cat="fm" data-search="spatial transcriptomics foundation model tissue kronos codex islet microenvironment" href="#" target="_blank" rel="noopener noreferrer">
       <div class="card-row-top">
         <div class="card-icon-wrap violet">🗺️</div>
         <span class="badge github">GitHub</span>
       </div>
-      <h3>Spatial Foundation Model</h3>
+      <h3>Spatial Transcriptomics Foundation Model</h3>
       <p class="desc">Foundation model for spatial transcriptomics. Models tissue architecture and cell–cell interactions in pancreatic islet microenvironments.</p>
       <div class="card-footer">
         <div class="card-tags"><span class="tag">Spatial</span><span class="tag">CODEX</span><span class="tag">H&amp;E</span></div>
         <span class="card-link">GitHub <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></span>
+      </div>
+    </a>
+
+    <!-- VOICE — vision–omics FM, arXiv:2608.08366 -->
+    <a class="card" data-origin="mai-t1d" data-accent="violet" data-cat="fm" data-search="voice spatial omics foundation model vision omics h&amp;e xenium single-cell gene expression prediction retrieval contrastive luo tao zeng wang chen liu arxiv 2608.08366" href="https://arxiv.org/abs/2608.08366" target="_blank" rel="noopener noreferrer">
+      <div class="card-row-top">
+        <div class="card-icon-wrap violet">🖼️</div>
+        <span class="badge submitted">Preprint</span>
+      </div>
+      <h3>Spatial Omics Foundation Model — VOICE</h3>
+      <p class="desc">Vision–omics foundation model that predicts single-cell gene expression directly from H&amp;E morphology, trained contrastively on 23M cells paired with Xenium data. Combines direct regression with retrieval from reference cells, weighted per gene.</p>
+      <div class="card-footer">
+        <div class="card-tags"><span class="tag">Spatial Omics</span><span class="tag">H&amp;E</span><span class="tag">Xenium</span></div>
+        <span class="card-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></span>
       </div>
     </a>
 
@@ -1138,14 +1157,15 @@ footer {
       </div>
     </a>
 
-    <!-- EPCOT Data -->
-    <a class="card" data-origin="mai-t1d" data-accent="violet" data-cat="platform" data-search="epcot data atac-seq dna regulatory genomics ai model" href="epcot-data.html" target="_blank" rel="noopener noreferrer">
+    <!-- EPCOT Training Data — the dataset behind the Genomics Foundation Model card above.
+         Named explicitly so the model and its data are not mistaken for two separate models. -->
+    <a class="card" data-origin="mai-t1d" data-accent="violet" data-cat="platform" data-search="epcot training data atac-seq dna regulatory genomics ai model dataset" href="epcot-data.html" target="_blank" rel="noopener noreferrer">
       <div class="card-row-top">
         <div class="card-icon-wrap violet">🧬</div>
         <span class="badge live">Live</span>
       </div>
-      <h3>EPCOT Data</h3>
-      <p class="desc">EPCOT v2 is a general AI model that predicts cell type-specific/context-specific regulatory signals from ATAC-seq data and DNA sequences.</p>
+      <h3>EPCOT Training Data</h3>
+      <p class="desc">Training and evaluation data behind the Genomics Foundation Model (EPCOT v2), which predicts cell-type- and context-specific regulatory signals from ATAC-seq data and DNA sequences.</p>
       <div class="card-footer">
         <div class="card-tags"><span class="tag">ATAC-seq</span><span class="tag">Epigenomics</span><span class="tag">Multi-task</span></div>
         <span class="card-link">Visit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></span>
@@ -1180,8 +1200,23 @@ footer {
   </div>
   <div class="card-grid">
 
+    <!-- MAI-T1D Foundation Stack — the integration repo. Kept out of the
+         Foundation Models section so that count stays at the 4 actual models. -->
+    <a class="card" data-origin="mai-t1d" data-accent="blue" data-cat="tool" data-search="mai-t1d foundation stack github models pipeline integration repository" href="https://github.com/USF-HII/MAI-T1D-Foundation-Stack" target="_blank" rel="noopener noreferrer">
+      <div class="card-row-top">
+        <div class="card-icon-wrap blue">💻</div>
+        <span class="badge github">GitHub</span>
+      </div>
+      <h3>MAI-T1D Foundation Stack</h3>
+      <p class="desc">Central GitHub repository that integrates the genomics, single-cell, spatial transcriptomics, and spatial omics foundation models into one pipeline for T1D research.</p>
+      <div class="card-footer">
+        <div class="card-tags"><span class="tag">Pipeline</span><span class="tag">Integration</span></div>
+        <span class="card-link">GitHub <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></span>
+      </div>
+    </a>
+
     <!-- KG Governance Demo -->
-    <a class="card" data-origin="mai-t1d" data-accent="amber" data-cat="tool" data-search="knowledge graph governance government system provenance data trace prov demo consortium" href="https://mai-t1d.404nfound.com/explore" target="_blank" rel="noopener noreferrer">
+    <a class="card" data-origin="mai-t1d" data-accent="amber" data-cat="tool" data-search="knowledge graph governance government system provenance data trace prov demo consortium" href="https://data-govern-kg.vercel.app/explore" target="_blank" rel="noopener noreferrer">
       <div class="card-row-top">
         <div class="card-icon-wrap amber">🕸️</div>
         <span class="badge beta">Demo</span>
@@ -1194,32 +1229,64 @@ footer {
       </div>
     </a>
 
-    <!-- Immunology GPS — exploratory concept, not a consortium deliverable -->
-    <a class="card" data-origin="mai-t1d" data-accent="rose" data-cat="tool" data-search="immunology gps immune cell trafficking map concept prototype idea t1d nod mouse human cross-species evidence atlas transit map demo" href="https://immunology-gps-demo.vercel.app/" target="_blank" rel="noopener noreferrer">
-      <div class="card-row-top">
-        <div class="card-icon-wrap rose">🧭</div>
-        <span class="badge concept">Concept</span>
-      </div>
-      <h3>Immunology GPS</h3>
-      <span class="idea-note">An idea, shown as a prototype. Not a validated resource — nothing here should be cited or used for analysis.</span>
-      <p class="desc">Explores what it would look like to read immune cell trafficking in T1D as a transit map: organs are stations, trafficking routes are lines, and evidence strength is the road condition. Human and NOD mouse views sit side by side so gaps between the model organism and human data stay visible instead of disappearing.</p>
-      <div class="card-footer">
-        <div class="card-tags"><span class="tag">Immunology</span><span class="tag">Cross-species</span><span class="tag">Prototype</span></div>
-        <span class="card-link">View concept <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></span>
-      </div>
-    </a>
+  </div>
+</div>
 
-    <!-- MAI-T1D Foundation Stack -->
-    <a class="card" data-origin="mai-t1d" data-accent="blue" data-cat="tool" data-search="mai-t1d foundation stack github models pipeline" href="https://github.com/USF-HII/MAI-T1D-Foundation-Stack" target="_blank" rel="noopener noreferrer">
+<!-- ═══════════════════════════════════════
+     SECTION: Ethical AI & Data Privacy
+     The three leakage/safeguard threads named in the About block.
+     TODO: each card is a placeholder until its link lands — swap the
+     <div class="card is-placeholder"> for <a class="card" href="…"
+     target="_blank" rel="noopener noreferrer">, drop the "Link coming"
+     footer, and give it a real badge.
+     ═══════════════════════════════════════ -->
+<div class="section" data-section="ethics">
+  <div class="section-head">
+    <div class="section-icon" style="background:rgba(5,150,105,0.08);color:var(--emerald-600)">🔐</div>
+    <h2>Ethical AI &amp; Data Privacy</h2>
+    <span class="section-count">3 topics</span>
+  </div>
+  <div class="card-grid">
+
+    <!-- Participation leakage -->
+    <div class="card is-placeholder" data-origin="mai-t1d" data-accent="emerald" data-cat="ethics" data-search="membership inference attack participation leakage privacy ethics training data audit">
       <div class="card-row-top">
-        <div class="card-icon-wrap blue">💻</div>
-        <span class="badge github">GitHub</span>
+        <div class="card-icon-wrap emerald">👤</div>
+        <span class="badge coming">Coming Soon</span>
       </div>
-      <h3>MAI-T1D Foundation Stack</h3>
-      <p class="desc">Central GitHub repository for the MAI-T1D foundation model stack — integrating genomics, single-cell, and spatial foundation models for T1D research.</p>
+      <h3>Membership Inference</h3>
+      <p class="desc">Participation leakage — whether an individual's presence in the training data can be inferred from a trained model. We audit MAI-T1D models for this risk and quantify how much it grows as modalities are combined.</p>
       <div class="card-footer">
-        <div class="card-tags"><span class="tag">Foundation Models</span><span class="tag">Pipeline</span></div>
-        <span class="card-link">GitHub <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></span>
+        <div class="card-tags"><span class="tag">Privacy</span><span class="tag">Audit</span></div>
+        <span class="card-link muted">Link coming</span>
+      </div>
+    </div>
+
+    <!-- Content leakage -->
+    <div class="card is-placeholder" data-origin="mai-t1d" data-accent="emerald" data-cat="ethics" data-search="reconstruction of training records content leakage model inversion privacy ethics memorization">
+      <div class="card-row-top">
+        <div class="card-icon-wrap emerald">🧾</div>
+        <span class="badge coming">Coming Soon</span>
+      </div>
+      <h3>Reconstruction of Training Records</h3>
+      <p class="desc">Content leakage — whether original training records can be reconstructed out of a trained model. We test how much of a donor's multimodal record a model memorizes, and what limits that memorization.</p>
+      <div class="card-footer">
+        <div class="card-tags"><span class="tag">Privacy</span><span class="tag">Memorization</span></div>
+        <span class="card-link muted">Link coming</span>
+      </div>
+    </div>
+
+    <!-- Split learning — Quantized-TinyLLaVA, arXiv:2511.23402 -->
+    <a class="card" data-origin="mai-t1d" data-accent="emerald" data-cat="ethics" data-search="split learning privacy preserving training whole genome sequencing wgs federated distributed quantized tinyllava safeguard arxiv 2511.23402" href="https://arxiv.org/abs/2511.23402" target="_blank" rel="noopener noreferrer">
+      <div class="card-row-top">
+        <div class="card-icon-wrap emerald">🔗</div>
+        <span class="badge submitted">Preprint</span>
+      </div>
+      <h3>Split Learning</h3>
+      <p class="desc">A safeguard rather than a risk — the model is partitioned across sites so private whole-genome sequencing data stays protected during training. Quantized-TinyLLaVA compresses the intermediate features exchanged between partitions, cutting communication ~87.5% at 2-bit.</p>
+      <div class="card-footer">
+        <div class="card-tags"><span class="tag">Safeguard</span><span class="tag">WGS</span><span class="tag">Distributed</span></div>
+        <span class="card-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></span>
       </div>
     </a>
 
@@ -1232,7 +1299,7 @@ footer {
      then related methods work from member labs. Every entry
      links to a public record (DOI, arXiv, or ACL Anthology).
      ═══════════════════════════════════════ -->
-<div class="section" data-section="pub">
+<div class="section" data-section="pub" id="publications">
   <div class="section-head">
     <div class="section-icon" style="background:var(--violet-100);color:var(--violet-600)">📚</div>
     <h2>Publications</h2>
@@ -1245,6 +1312,21 @@ footer {
       <p class="cg-note">Consortium work on type 1 diabetes data, biomedical models, and the platforms listed on this hub.</p>
     </div>
     <div class="card-grid">
+
+    <!-- VOICE — vision–omics FM, arXiv:2608.08366 -->
+    <a class="card" data-origin="mai-t1d" data-accent="violet" data-cat="pub" data-search="voice vision-omics foundation model integrating direct retrieval-based prediction in-situ single-cell gene expression h&amp;e xenium spatial transcriptomics contrastive arxiv 2608.08366 luo tao zeng wang ouyang zhu liu chen" href="https://arxiv.org/abs/2608.08366" target="_blank" rel="noopener noreferrer">
+      <div class="card-row-top">
+        <div class="card-icon-wrap violet venue-mark">arXiv</div>
+        <span class="badge submitted">Preprint</span>
+      </div>
+      <h3>VOICE: A Vision-Omics Foundation Model Integrating Direct and Retrieval-Based Prediction of In-situ Single-Cell Gene Expression</h3>
+      <p class="pub-meta">X Luo, Y Tao, H Zeng, S Wang, C Ouyang, M Zhu, K Liu, S Chen, J Liu<br><span class="venue">arXiv · 08/2026</span></p>
+      <p class="desc">Aligns cell-centered H&amp;E morphology with single-cell expression embeddings by contrastive learning over 23M cells, then predicts expression through a direct-regression branch and a retrieval branch fused with per-gene weights — generalizing to held-out patients, slides, and partially overlapping Xenium panels.</p>
+      <div class="card-footer">
+        <div class="card-tags"><span class="tag">Spatial Omics</span><span class="tag">H&amp;E</span><span class="tag">Foundation Model</span></div>
+        <span class="card-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></span>
+      </div>
+    </a>
 
     <!-- CelLink — Nucleic Acids Research -->
     <a class="card" data-origin="mai-t1d" data-accent="violet" data-cat="pub" data-search="cellink integrating single-cell multi-omics data weak feature linkage imbalanced cell populations nucleic acids research 2025 optimal transport luo liu brissova parker" href="https://doi.org/10.1093/nar/gkaf1270" target="_blank" rel="noopener noreferrer">
@@ -1553,6 +1635,39 @@ footer {
 </div>
 
 <!-- ═══════════════════════════════════════
+     SECTION: Prototypes & Explorations
+     Exploratory ideas, not consortium deliverables. Kept apart from the
+     resource sections above so nothing here reads as something to cite
+     or rely on. Cards use data-cat="prototype" so they are excluded from
+     the "Tools Built" stat and from the Tools & Agents filter.
+     ═══════════════════════════════════════ -->
+<div class="section" data-section="prototype">
+  <div class="section-head">
+    <div class="section-icon" style="background:rgba(225,29,72,0.06);color:var(--rose-600)">🧭</div>
+    <h2>Prototypes &amp; Explorations</h2>
+    <span class="section-count">1 exploration</span>
+  </div>
+  <div class="card-grid">
+
+    <!-- Immunology GPS — exploratory concept, not a consortium deliverable -->
+    <a class="card" data-origin="mai-t1d" data-accent="rose" data-cat="prototype" data-search="immunology gps immune cell trafficking map concept prototype idea t1d nod mouse human cross-species evidence atlas transit map demo" href="https://immunology-gps-demo.vercel.app/" target="_blank" rel="noopener noreferrer">
+      <div class="card-row-top">
+        <div class="card-icon-wrap rose">🧭</div>
+        <span class="badge concept">Concept</span>
+      </div>
+      <h3>Immunology GPS</h3>
+      <span class="idea-note">An idea, shown as a prototype. Not a validated resource — nothing here should be cited or used for analysis.</span>
+      <p class="desc">Explores what it would look like to read immune cell trafficking in T1D as a transit map: organs are stations, trafficking routes are lines, and evidence strength is the road condition. Human and NOD mouse views sit side by side so gaps between the model organism and human data stay visible instead of disappearing.</p>
+      <div class="card-footer">
+        <div class="card-tags"><span class="tag">Immunology</span><span class="tag">Cross-species</span><span class="tag">Prototype</span></div>
+        <span class="card-link">View concept <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></span>
+      </div>
+    </a>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
      DATA SOURCES & EXTERNAL RESOURCES
      Access labels follow each hosting study's own policy;
      re-check them when a study changes its terms.
@@ -1627,7 +1742,7 @@ footer {
       <a class="pi-chip" href="https://web.cs.ucla.edu/~kwchang/" target="_blank" rel="noopener noreferrer">UCLA PI Kai-Wei Chang <span class="inst">UCLA</span></a>
     </div>
     <div class="footer-bottom">
-      MAI-T1D is supported by the National Institutes of Health · <a href="#">NIH Grant Info</a>
+      MAI-T1D is supported by the National Institutes of Health · <a href="https://reporter.nih.gov/project-details/11090829" target="_blank" rel="noopener noreferrer">NIH Grant Info</a>
     </div>
   </div>
 </footer>
@@ -1649,11 +1764,15 @@ function setFilter(cat, btn) {
 // Stats that describe our own output are derived from the page itself, once at
 // load — the card set never changes afterwards, filtering only hides cards.
 (function deriveStats() {
+  // "Tools built" excludes the foundation models, which now have their own stat,
+  // so nothing is counted twice.
   const built = document.querySelectorAll(
-    '.card[data-origin="mai-t1d"]:not([data-cat="pub"]):not([data-cat="wiki"])'
+    '.card[data-origin="mai-t1d"]:not([data-cat="pub"]):not([data-cat="wiki"]):not([data-cat="prototype"]):not([data-cat="fm"]):not([data-cat="ethics"])'
   ).length;
+  const models = document.querySelectorAll('.card[data-origin="mai-t1d"][data-cat="fm"]').length;
   const cohorts = document.querySelectorAll('#cohortGrid .source-chip').length;
   if (built) document.getElementById('statBuilt').textContent = built;
+  if (models) document.getElementById('statModels').textContent = models;
   if (cohorts) document.getElementById('statCohorts').textContent = cohorts;
 })();
 
